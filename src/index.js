@@ -1,17 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 
+const name = `Jack`;
+const element = <h1>Hello, {name}</h1>
+
+//can use <React.Fragment>...</React.Fragment>
+//can use <React.StrictMode>...</React.StrictMode>
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    {/*<App />*/}
+    {/*{element}*/}
+    <h3>Hello {name}</h3>
+    <h4>Full Stack Developer</h4>
+    <h2>Welcome to my page</h2>
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
