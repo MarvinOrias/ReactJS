@@ -1,20 +1,56 @@
 import { Card, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 //destruct
 
 export default function CourseCard({courseProp}) {
 	console.log(courseProp);
-	let { name, desc, price } = courseProp;
+	let { name, description, price } = courseProp;
+
+	//use state hook to be able to store value
+	//states are used to keep track of information related to individual components
+
+	//syntax
+		//let [currentValue(getter), updatedValue(setter)] = useStae(initialGetterValue)
+
+		let [getCount, setCount] = useState(0);
+		let [getSeat, setSeat] = useState(30);
+
+		function enroll(){
+/*			setCount(getCount + 1);
+			console.warn(`Enrollees count: ${getCount}`);
+			setSeat(getSeat - 1);
+			console.warn(`Seats left: ${getSeat}`);*/
+
+			/*if(getCount >= 10){
+				console.log(`stop`);
+			}
+			else{
+				setCount(getCount + 1);
+			}*/
+
+			if(getSeat > 0){
+				setCount(getCount + 1);
+				console.warn(`Enrollees count: ${getCount}`);
+				setSeat(getSeat - 1);
+				console.warn(`Seats left: ${getSeat}`);
+			}
+			else{
+				alert(`No more seats available`);
+			}
+		}
+
 	return(
-			<Card>
+			<Card className="mt-3">
 				<Card.Body>
 					<Card.Title>{name}</Card.Title>
 					<Card.Subtitle>Description</Card.Subtitle>
-					<Card.Text>{desc}</Card.Text>
+					<Card.Text>{description}</Card.Text>
 					<Card.Subtitle>Price:</Card.Subtitle>
 					<Card.Text>{price}</Card.Text>
-					<Button variant="info">Enroll</Button>
+					<Card.Text>Enrollees: {getCount}</Card.Text>
+					<Button variant="info" onClick={enroll}>Enroll</Button>
 				</Card.Body>
 			</Card>
 		)
