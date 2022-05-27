@@ -1,8 +1,16 @@
 import './App.css';
+import AppNavBar from './components/AppNavBar';
+import { Container } from 'react-bootstrap';
+import Home from './pages/Home';
 
 function App() {
   return (
-    <h1>Hello World</h1>
+    <>
+      <AppNavBar />
+      <Container>
+        <Home />
+      </Container>
+    </>
   );
 }
 
