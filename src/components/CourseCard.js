@@ -1,6 +1,6 @@
 import { Card, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 //destruct
 
@@ -17,6 +17,15 @@ export default function CourseCard({courseProp}) {
 		let [getCount, setCount] = useState(0);
 		let [getSeat, setSeat] = useState(30);
 
+		//for enable/disable of button
+		let [isOpen, setIsOpen] = useState(true);
+
+		useEffect(() => {
+			if(getSeat === 0){
+				setIsOpen(false);
+			}
+		}, [getSeat]);
+
 		function enroll(){
 /*			setCount(getCount + 1);
 			console.warn(`Enrollees count: ${getCount}`);
@@ -30,7 +39,7 @@ export default function CourseCard({courseProp}) {
 				setCount(getCount + 1);
 			}*/
 
-			if(getSeat > 0){
+			/*if(getSeat > 0){
 				setCount(getCount + 1);
 				console.warn(`Enrollees count: ${getCount}`);
 				setSeat(getSeat - 1);
@@ -38,7 +47,11 @@ export default function CourseCard({courseProp}) {
 			}
 			else{
 				alert(`No more seats available`);
-			}
+			}*/
+			setCount(getCount + 1);
+			console.warn(`Enrollees count: ${getCount}`);
+			setSeat(getSeat - 1);
+			console.warn(`Seats left: ${getSeat}`);
 		}
 
 	return(
@@ -50,7 +63,9 @@ export default function CourseCard({courseProp}) {
 					<Card.Subtitle>Price:</Card.Subtitle>
 					<Card.Text>{price}</Card.Text>
 					<Card.Text>Enrollees: {getCount}</Card.Text>
-					<Button variant="info" onClick={enroll}>Enroll</Button>
+
+					{isOpen ? <Button variant="info" onClick={enroll}>Enroll</Button>
+					: <Button variant="info" onClick={enroll} disabled className="ms-3">Enroll</Button>}
 				</Card.Body>
 			</Card>
 		)
