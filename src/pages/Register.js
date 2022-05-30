@@ -39,7 +39,7 @@ export default function Register(){
 	}
 
 	return (
-			(user.email !== null) ?
+			(user.accessToken !== null) ?
 			<Navigate to="/courses" /> :
 			<Form onSubmit={e => registerUser(e)}>
 			<h1>Register</h1>

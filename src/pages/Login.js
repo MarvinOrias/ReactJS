@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import UserContext from '../UserContext';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export default function Login() {
 
@@ -18,6 +18,8 @@ export default function Login() {
 		.then(response => response.json()) - parse response as JSON
 		.then(actualData => console.log(actualData)) - process the result of the response
 	*/
+
+	const navigate = useNavigate();
 
 	//Consume the User Context object and it's properties to use for user validation and to get the email coming from the login
 	const { user, setUser } = useContext(UserContext);
@@ -70,11 +72,62 @@ export default function Login() {
 		.then((response) => response.json())
 		.then((data) => {
 			console.log(data);
-		})
+
+			if(data.Token_Created !== undefined){
+				localStorage.setItem('accessToken', data.Token_Created);
+				setUser({
+					accessToken: data.Token_Created
+				})
+
+				Swal.fire({
+					title: "Yay",
+					icon: "success",
+					text: "You are now logged in"
+				})
+
+				//get users details from token
+				fetch('http://localhost:4000/users/details', {
+					headers: {
+						Authorization: `Bearer ${data.Token_Created}`
+					}
+				})
+				.then(res => res.json())
+				.then(data => {
+					console.log(data)
+
+					if(data.isAdmin === true) {
+						localStorage.setItem('isAdmin', data.isAdmin)
+
+						setUser({
+							isAdmin: data.isAdmin
+						})
+
+						//push to the /courses
+						Navigate('/courses')
+					}else {
+						//if not an admin, push to '/' (homepage)
+						Navigate('/')
+					}
+
+				})
+
+
+			}
+			else{
+				Swal.fire({
+					title: "Ooooppss",
+					icon: "error",
+					text: "Email or password incorrect"
+				})
+			}
+
+			setEmail('');
+			setPassword('');
+		});
 	}
 
 	return(
-		(user.email !== null) ?
+		(user.accessToken !== null) ?
 		<Navigate to="/courses" />
 
 		:
