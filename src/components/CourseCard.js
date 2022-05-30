@@ -63,6 +63,7 @@ export default function CourseCard({courseProp}) {
 					<Card.Subtitle>Price:</Card.Subtitle>
 					<Card.Text>{price}</Card.Text>
 					<Card.Text>Enrollees: {getCount}</Card.Text>
+					<Card.Text>Seats available: {getSeat}</Card.Text>
 
 					{isOpen ? <Button variant="info" onClick={enroll}>Enroll</Button>
 					: <Button variant="info" onClick={enroll} disabled className="">Slots full</Button>}

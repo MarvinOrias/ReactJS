@@ -2,7 +2,7 @@
 import coursesData from '../mock data/coursesData';*/
 import UserView from '../components/UserView';
 import AdminView from '../components/AdminView';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import UserContext from '../UserContext';
 
 export default function CoursePage(){
@@ -19,17 +19,34 @@ export default function CoursePage(){
 			)
 	})*/
 
+	const [ allCourses, setAllCourses ] = useState([]);
+
+	const fetchData = () => {
+		fetch('http://localhost:4000/products/all')
+		.then(res => res.json())
+		.then(data => {
+			console.log(data, `data`)
+			console.log(data.result);
+			//storing all data to useState allCourses
+			setAllCourses(data.result)
+		})
+	}
+
+	useEffect(() => {
+		fetchData()
+	}, [])
+
 	const { user } = useContext(UserContext);
 
 	return(
 			<>
-				<h1>Courses</h1>
+				<h1>Products</h1>
 				{/*<CourseCard courseProp={coursesData[0]} /> {/*receive fr coursecard*/}
 				{/*{courses}*/}
 				{(user.isAdmin === true) ?
-					<AdminView />
+					<AdminView coursesData={allCourses} fetchData={fetchData}/>
 					:
-					<UserView />
+					<UserView coursesData={allCourses}/>
 				}
 			</>
 		)

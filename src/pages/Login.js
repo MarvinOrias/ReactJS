@@ -95,18 +95,18 @@ export default function Login() {
 				.then(data => {
 					console.log(data)
 
-					if(data.isAdmin === true) {
-						localStorage.setItem('isAdmin', data.isAdmin)
+					if(data.details.isAdmin === true) {
+						localStorage.setItem('isAdmin', data.details.isAdmin)
 
 						setUser({
-							isAdmin: data.isAdmin
+							isAdmin: data.details.isAdmin
 						})
 
 						//push to the /courses
-						Navigate('/courses')
+						navigate('/courses')
 					}else {
 						//if not an admin, push to '/' (homepage)
-						Navigate('/')
+						navigate('/')
 					}
 
 				})
