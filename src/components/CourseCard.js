@@ -64,7 +64,7 @@ export default function CourseCard({courseProp}) {
 					<Card.Subtitle>Price:</Card.Subtitle>
 					<Card.Text>{price}</Card.Text>
 
-					<Button variant="info" as={Link} to={`/courses/${_id}`}>Details</Button>
+					<Button variant="info" as={ Link } to={`/courses/${_id}`}>Details</Button>
 					{/*<Card.Text>Enrollees: {getCount}</Card.Text>
 					<Card.Text>Seats available: {getSeat}</Card.Text>
 
