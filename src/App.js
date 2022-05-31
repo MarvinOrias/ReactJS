@@ -7,6 +7,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
 import Page404 from './pages/Page404';
+import SpecificCourse from './pages/SpecificCourse';
 import { Container } from 'react-bootstrap';
 import { UserProvider } from './UserContext';
 
@@ -41,6 +42,7 @@ function App() {
                     <Route path="/register" element={ <Register /> }/>
                     <Route path="/login" element={ <Login /> }/>
                     <Route path="/logout" element={ <Logout /> }/>
+                    <Route path="/courses/:courseId" element={ <SpecificCourse /> }/>
                     <Route path="*" element={ <Page404 /> } />
                 </Routes>
             </Container>

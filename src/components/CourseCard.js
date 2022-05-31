@@ -1,32 +1,33 @@
 import { Card, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 //destruct
 
 export default function CourseCard({courseProp}) {
 	console.log(courseProp);
-	let { name, description, price } = courseProp;
+	const { _id, name, description, price } = courseProp;
 
 	//use state hook to be able to store value
 	//states are used to keep track of information related to individual components
 
 	//syntax
-		//let [currentValue(getter), updatedValue(setter)] = useStae(initialGetterValue)
+		//const [currentValue(getter), updatedValue(setter)] = useStae(initialGetterValue)
 
-		let [getCount, setCount] = useState(0);
-		let [getSeat, setSeat] = useState(30);
+		//const [getCount, setCount] = useState(0);
+		//const [getSeat, setSeat] = useState(30);
 
 		//for enable/disable of button
-		let [isOpen, setIsOpen] = useState(true);
+		//const [isOpen, setIsOpen] = useState(true);
 
-		useEffect(() => {
+		/*useEffect(() => {
 			if(getSeat === 0){
 				setIsOpen(false);
 			}
-		}, [getSeat]);
+		}, [getSeat]);*/
 
-		function enroll(){
+		//function enroll(){
 /*			setCount(getCount + 1);
 			console.warn(`Enrollees count: ${getCount}`);
 			setSeat(getSeat - 1);
@@ -48,11 +49,11 @@ export default function CourseCard({courseProp}) {
 			else{
 				alert(`No more seats available`);
 			}*/
-			setCount(getCount + 1);
+			/*setCount(getCount + 1);
 			console.warn(`Enrollees count: ${getCount}`);
 			setSeat(getSeat - 1);
 			console.warn(`Seats left: ${getSeat}`);
-		}
+		}*/
 
 	return(
 			<Card className="mt-3">
@@ -62,11 +63,13 @@ export default function CourseCard({courseProp}) {
 					<Card.Text>{description}</Card.Text>
 					<Card.Subtitle>Price:</Card.Subtitle>
 					<Card.Text>{price}</Card.Text>
-					<Card.Text>Enrollees: {getCount}</Card.Text>
+
+					<Button variant="info" as={Link} to={`/courses/${_id}`}>Details</Button>
+					{/*<Card.Text>Enrollees: {getCount}</Card.Text>
 					<Card.Text>Seats available: {getSeat}</Card.Text>
 
-					{isOpen ? <Button variant="info" onClick={enroll}>Enroll</Button>
-					: <Button variant="info" onClick={enroll} disabled className="">Slots full</Button>}
+					{isOpen ? 
+					: <Button variant="info" onClick={enroll} disabled className="">Slots full</Button>}*/}
 				</Card.Body>
 			</Card>
 		)
